@@ -10,7 +10,7 @@ dataSources:
     source:
       address: "0x18614B51ca6097B1b4C5e2075C111f18Ce3Cb868"
       abi: ChainConnect
-      startBlock: 0
+      startBlock: 171887678
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7

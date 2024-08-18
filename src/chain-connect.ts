@@ -24,7 +24,8 @@ import {
   PostCreated,
   PostSold,
   RewardClaimed,
-  Transfer
+  Transfer,
+  UserRewards
 } from "../generated/schema"
 
 export function handleAccountCreated(event: AccountCreatedEvent): void {
@@ -180,6 +181,19 @@ export function handlePostSold(event: PostSoldEvent): void {
 }
 
 export function handleRewardClaimed(event: RewardClaimedEvent): void {
+
+  let user = UserRewards.load(event.params.user);
+  
+  if (!user) {
+    user = new UserRewards(event.params.user);
+  }
+
+  user.rewardClaimed = event.params.reward
+  user.claimedAt = event.block.timestamp
+  user.totalClaimed = user.totalClaimed.plus(event.params.reward)
+  user.transactionHash = event.transaction.hash
+  user.save();
+
   let entity = new RewardClaimed(
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )

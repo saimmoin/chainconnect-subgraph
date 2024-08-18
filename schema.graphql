@@ -1,3 +1,5 @@
+# @format
+
 type AccountCreated @entity(immutable: true) {
   id: Bytes!
   user: Bytes! # address
@@ -116,5 +118,13 @@ type Transfer @entity(immutable: true) {
   tokenId: BigInt! # uint256
   blockNumber: BigInt!
   blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type UserRewards @entity(immutable: true) {
+  id: Bytes!
+  rewardClaimed: BigInt!
+  totalClaimed: BigInt!
+  claimedAt: BigInt!
   transactionHash: Bytes!
 }
